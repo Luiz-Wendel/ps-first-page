@@ -14,8 +14,11 @@ app.use(morgan('tiny'));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+  res.render('index', { title: 'Library', list: ['a', 'b', 'c'] });
 });
 
 app.listen(port, () => {
