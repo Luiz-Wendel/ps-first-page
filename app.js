@@ -1,9 +1,12 @@
 const express = require('express');
 const chalk = require('chalk');
+const debug = require('debug')('app');
 const morgan = require('morgan');
 const path = require('path');
 
 const app = express();
+
+const port = process.env.PORT || 3000;
 
 // Print requests on terminal
 app.use(morgan('tiny'));
@@ -15,6 +18,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
-app.listen(3002, () => {
-  console.log(`Listening on port ${chalk.green('3002')}...`);
+app.listen(port, () => {
+  debug(`Listening on port ${chalk.green(port)}...`);
 });
