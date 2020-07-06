@@ -9,6 +9,9 @@ const app = express()
 // Print requests on terminal
 app.use(morgan('tiny'))
 
+app.use(express.static(path.join(__dirname, 'node_modules')))
+app.use(express.static(path.join(__dirname, 'public')))
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'))
 })

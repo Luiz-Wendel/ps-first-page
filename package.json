@@ -4,7 +4,7 @@
   "description": "PluralSight course: Building Web Applications with Node.js and Express 4.0",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "set DEBUG=app & nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/Luiz-Wendel/ps-first-page#readme",
   "dependencies": {
+    "bootstrap": "^4.5.0",
     "chalk": "^4.1.0",
     "express": "^4.17.1",
+    "jquery": "^3.5.1",
     "morgan": "^1.10.0"
   }
 }
