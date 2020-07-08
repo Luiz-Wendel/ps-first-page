@@ -1,13 +1,77 @@
 const express = require('express');
 
-const route = express.Router();
+const router = express.Router();
 
-route.get('/', (req, res) => {
-  res.send('Welcome to books');
+const books = [
+  {
+    title: 'War and Peace',
+    genre: 'Historical Fiction',
+    author: 'Lev Nikolayevich Tolstoy',
+    read: false,
+  },
+  {
+    title: 'Les Misérables',
+    genre: 'Historical Fiction',
+    author: 'Victor Hugo',
+    read: false,
+  },
+  {
+    title: 'The Time Machine',
+    genre: 'Science Fiction',
+    author: 'H. G. Wells',
+    read: false,
+  },
+  {
+    title: 'A Journey into the Center of the Earth',
+    genre: 'Science Fiction',
+    author: 'Jules Verne',
+    read: false,
+  },
+  {
+    title: 'The Dark World',
+    genre: 'Fantasy',
+    author: 'Henry Kuttner',
+    read: false,
+  },
+  {
+    title: 'The Wind in the Willows',
+    genre: 'Fantasy',
+    author: 'Kenneth Grahame',
+    read: false,
+  },
+  {
+    title: 'Life On The Mississippi',
+    genre: 'History',
+    author: 'Mark Twain',
+    read: false,
+  },
+  {
+    title: 'Childhood',
+    genre: 'Biography',
+    author: 'Lev Nikolayevich Tolstoy',
+    read: false,
+  },
+];
+
+router.get('/', (req, res) => {
+  res.render('books', {
+    title: 'Library',
+    nav: [
+      {
+        link: '/books',
+        name: 'Books',
+      },
+      {
+        link: '/authors',
+        name: 'Authors',
+      },
+    ],
+    books,
+  });
 });
 
-route.get('/single', (req, res) => {
+router.get('/single', (req, res) => {
   res.send('Welcome to single book');
 });
 
-module.exports = route;
+module.exports = router;
