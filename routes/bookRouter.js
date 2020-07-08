@@ -70,8 +70,23 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/single', (req, res) => {
-  res.send('Welcome to single book');
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
+
+  res.render('books/single', {
+    title: 'Library',
+    nav: [
+      {
+        link: '/books',
+        name: 'Books',
+      },
+      {
+        link: '/authors',
+        name: 'Authors',
+      },
+    ],
+    book: books[id],
+  });
 });
 
 module.exports = router;

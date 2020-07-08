@@ -94,7 +94,6 @@
           <div class="panel">
             <div class="panel-body">
               <!--/stories-->
-              <% books.forEach((book, index) => { %>
               <div class="row">
                 <br />
                 <div class="col-md-2 col-sm-3 text-center">
@@ -116,16 +115,6 @@
                           ><%= book.author %></span
                         >
                       </h4>
-                      <h4>
-                        <small
-                          style="font-family: courier, 'new courier';"
-                          class="text-muted"
-                          >2 hours ago •
-                          <a href="books/<%= index %>" class="text-muted"
-                            >Read More</a
-                          ></small
-                        >
-                      </h4>
                     </div>
                     <div class="col-xs-3"></div>
                   </div>
@@ -133,7 +122,6 @@
                 </div>
               </div>
               <hr />
-              <% }) %>
               <!--/stories-->
 
               <a href="/" class="btn btn-primary pull-right btnNext"
