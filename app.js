@@ -6,10 +6,21 @@ const path = require('path');
 
 const app = express();
 
-// Routes
-const bookRouter = require('./routes/bookRouter');
-
 const port = process.env.PORT || 3000;
+const title = 'Library';
+const nav = [
+  {
+    link: '/books',
+    name: 'Books',
+  },
+  {
+    link: '/authors',
+    name: 'Authors',
+  },
+];
+
+// Routes
+const bookRouter = require('./routes/bookRouter')(title, nav);
 
 // Print requests on terminal
 app.use(morgan('tiny'));
@@ -24,17 +35,8 @@ app.use('/books', bookRouter);
 
 app.get('/', (req, res) => {
   res.render('index', {
-    title: 'Library',
-    nav: [
-      {
-        link: '/books',
-        name: 'Books',
-      },
-      {
-        link: '/authors',
-        name: 'Authors',
-      },
-    ],
+    title,
+    nav,
   });
 });
 
