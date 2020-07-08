@@ -94,7 +94,7 @@
           <div class="panel">
             <div class="panel-body">
               <!--/stories-->
-              <% books.forEach((book, index) => { %>
+              <% books.forEach(book => { %>
               <div class="row">
                 <br />
                 <div class="col-md-2 col-sm-3 text-center">
@@ -120,8 +120,11 @@
                         <small
                           style="font-family: courier, 'new courier';"
                           class="text-muted"
-                          >2 hours ago •
-                          <a href="books/<%= index %>" class="text-muted"
+                          ><%= (new Date() - book.createdAt) / 60000 > 60 ?
+                          Math.round((new Date() - book.createdAt) / 3600000) +
+                          ' h ago' : Math.round((new Date() - book.createdAt) /
+                          60000) + ' min ago' %>
+                          <a href="books/<%= book.id %>" class="text-muted"
                             >Read More</a
                           ></small
                         >

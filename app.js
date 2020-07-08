@@ -4,6 +4,9 @@ const debug = require('debug')('app');
 const morgan = require('morgan');
 const path = require('path');
 
+// DB
+const db = require('./models');
+
 const app = express();
 
 const port = process.env.PORT || 3000;
@@ -40,6 +43,8 @@ app.get('/', (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  debug(`Listening on port ${chalk.green(port)}...`);
+db.sequelize.sync().then(() => {
+  app.listen(port, () => {
+    debug(`Listening on port ${chalk.green(port)}...`);
+  });
 });
