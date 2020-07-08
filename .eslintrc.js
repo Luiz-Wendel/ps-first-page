@@ -4,13 +4,12 @@ module.exports = {
     es2020: true,
     node: true,
   },
-  extends: [
-    'airbnb-base',
-  ],
+  extends: ['airbnb-base'],
   parserOptions: {
     ecmaVersion: 11,
     sourceType: 'module',
   },
   rules: {
+    'linebreak-style': 0,
   },
 };

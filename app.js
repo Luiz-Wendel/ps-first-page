@@ -6,6 +6,9 @@ const path = require('path');
 
 const app = express();
 
+// Routes
+const bookRouter = require('./routes/bookRouter');
+
 const port = process.env.PORT || 3000;
 
 // Print requests on terminal
@@ -16,6 +19,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use('/books', bookRouter);
 
 app.get('/', (req, res) => {
   res.render('index', {
