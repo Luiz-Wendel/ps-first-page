@@ -3,6 +3,9 @@ const chalk = require('chalk');
 const debug = require('debug')('app');
 const morgan = require('morgan');
 const path = require('path');
+const passport = require('passport');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 // DB
 const db = require('./models');
@@ -35,6 +38,16 @@ app.use(
     extended: false,
   })
 );
+app.use(cookieParser());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: false,
+  })
+);
+
+require('./configs/passport.js')(app);
 
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'public')));
