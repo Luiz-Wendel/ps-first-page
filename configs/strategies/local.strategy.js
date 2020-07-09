@@ -1,5 +1,8 @@
 const passport = require('passport');
 const { Strategy } = require('passport-local');
+const debug = require('debug')('app:local.strategy');
+
+const { User } = require('../../models');
 
 module.exports = () => {
   passport.use(
@@ -8,13 +11,20 @@ module.exports = () => {
         usernameField: 'username',
         passwordField: 'password',
       },
-      (username, password, done) => {
-        const user = {
-          username,
-          password,
-        };
+      async (username, password, done) => {
+        // User validation
+        try {
+          const user = await User.findOne({
+            where: {
+              username,
+            },
+          });
 
-        done(null, user);
+          if (!user || user.password !== password) done(null, false);
+          else done(null, user);
+        } catch (error) {
+          debug(error);
+        }
       }
     )
   );
