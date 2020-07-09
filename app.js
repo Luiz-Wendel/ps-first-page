@@ -23,10 +23,18 @@ const nav = [
 ];
 
 // Routes
+const authRouter = require('./routes/authRouter')(title, nav);
 const bookRouter = require('./routes/bookRouter')(title, nav);
 
 // Print requests on terminal
 app.use(morgan('tiny'));
+
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: false,
+  })
+);
 
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -34,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use('/auth', authRouter);
 app.use('/books', bookRouter);
 
 app.get('/', (req, res) => {
