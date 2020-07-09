@@ -1,57 +1,17 @@
 const express = require('express');
-const passport = require('passport');
-const bcrypt = require('bcrypt');
+
+// Controller
+const authController = require('../controllers/authController');
 
 // Middlewares
 const auth = require('../middlewares/auth');
 
-// Models
-const { User } = require('../models');
+const router = express.Router();
 
-const authRouter = express.Router();
-
-const router = (title, nav) => {
-  authRouter.post('/signUp', async (req, res) => {
-    const { username, password } = req.body;
-
-    const hashPassword = bcrypt.hashSync(password, 10);
-
-    const newUser = await User.create({
-      username,
-      password: hashPassword,
-    });
-
-    req.login(newUser, () => {
-      res.redirect('/auth/profile');
-    });
-  });
-
-  authRouter.get('/signIn', (req, res) => {
-    res.render('auth/signIn', {
-      title: `${title} - Sign In`,
-      nav,
-    });
-  });
-
-  authRouter.post(
-    '/signIn',
-    passport.authenticate('local', {
-      successRedirect: '/auth/profile',
-      failureRedirect: '/',
-    })
-  );
-
-  authRouter.get('/profile', auth, (req, res) => {
-    res.json(req.user);
-  });
-
-  authRouter.get('/logout', (req, res) => {
-    req.logout();
-
-    res.redirect('/');
-  });
-
-  return authRouter;
-};
+router.post('/signUp', authController.signUp);
+router.get('/signIn', authController.signIn);
+router.post('/signIn', authController.signInAuth);
+router.get('/profile', auth, authController.profile);
+router.get('/logout', authController.logout);
 
 module.exports = router;

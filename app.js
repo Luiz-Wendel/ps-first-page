@@ -25,7 +25,7 @@ const nav = [
 ];
 
 // Routers
-const authRouter = require('./routes/authRouter')(title, nav);
+const authRouter = require('./routes/authRouter');
 const bookRouter = require('./routes/bookRouter');
 
 // Print requests on terminal
