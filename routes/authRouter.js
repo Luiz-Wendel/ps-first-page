@@ -1,10 +1,19 @@
 const express = require('express');
 
+const { User } = require('../models');
+
 const authRouter = express.Router();
 
 const router = (title, nav) => {
-  authRouter.post('/signUp', (req, res) => {
-    req.login(req.body, () => {
+  authRouter.post('/signUp', async (req, res) => {
+    const { username, password } = req.body;
+
+    const newUser = await User.create({
+      username,
+      password,
+    });
+
+    req.login(newUser, () => {
       res.redirect('/auth/profile');
     });
   });
