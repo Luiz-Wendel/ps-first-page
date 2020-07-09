@@ -3,7 +3,6 @@ const chalk = require('chalk');
 const debug = require('debug')('app');
 const morgan = require('morgan');
 const path = require('path');
-const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
@@ -25,9 +24,9 @@ const nav = [
   },
 ];
 
-// Routes
+// Routers
 const authRouter = require('./routes/authRouter')(title, nav);
-const bookRouter = require('./routes/bookRouter')(title, nav);
+const bookRouter = require('./routes/bookRouter');
 
 // Print requests on terminal
 app.use(morgan('tiny'));
@@ -58,7 +57,7 @@ app.set('view engine', 'ejs');
 app.use('/auth', authRouter);
 app.use('/books', bookRouter);
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.render('index', {
     title,
     nav,
