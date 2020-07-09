@@ -45,6 +45,12 @@ const router = (title, nav) => {
     res.json(req.user);
   });
 
+  authRouter.get('/logout', (req, res) => {
+    req.logout();
+
+    res.redirect('/');
+  });
+
   return authRouter;
 };
 
