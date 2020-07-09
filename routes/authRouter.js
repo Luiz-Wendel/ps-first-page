@@ -4,7 +4,13 @@ const authRouter = express.Router();
 
 const router = (title, nav) => {
   authRouter.post('/signUp', (req, res) => {
-    res.json(req.body);
+    req.login(req.body, () => {
+      res.redirect('/auth/profile');
+    });
+  });
+
+  authRouter.get('/profile', (req, res) => {
+    res.json(req.user);
   });
 
   return authRouter;
