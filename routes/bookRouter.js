@@ -1,10 +1,16 @@
 const express = require('express');
 
+// Middlewares
+const auth = require('../middlewares/auth');
+
+// Models
 const { Book } = require('../models');
 
 const bookRouter = express.Router();
 
 const router = (title, nav) => {
+  bookRouter.use(auth);
+
   bookRouter.get('/', async (req, res) => {
     const books = await Book.findAll();
 

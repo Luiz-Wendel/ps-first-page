@@ -2,6 +2,10 @@ const express = require('express');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 
+// Middlewares
+const auth = require('../middlewares/auth');
+
+// Models
 const { User } = require('../models');
 
 const authRouter = express.Router();
@@ -37,7 +41,7 @@ const router = (title, nav) => {
     })
   );
 
-  authRouter.get('/profile', (req, res) => {
+  authRouter.get('/profile', auth, (req, res) => {
     res.json(req.user);
   });
 
