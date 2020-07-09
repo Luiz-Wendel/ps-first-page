@@ -1,6 +1,7 @@
 const passport = require('passport');
 const { Strategy } = require('passport-local');
 const debug = require('debug')('app:local.strategy');
+const bcrypt = require('bcrypt');
 
 const { User } = require('../../models');
 
@@ -20,8 +21,9 @@ module.exports = () => {
             },
           });
 
-          if (!user || user.password !== password) done(null, false);
-          else done(null, user);
+          if (user && bcrypt.compareSync(password, user.password)) {
+            done(null, user);
+          } else done(null, false);
         } catch (error) {
           debug(error);
         }

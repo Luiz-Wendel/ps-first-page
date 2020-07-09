@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const bcrypt = require('bcrypt');
 
 const { User } = require('../models');
 
@@ -9,9 +10,11 @@ const router = (title, nav) => {
   authRouter.post('/signUp', async (req, res) => {
     const { username, password } = req.body;
 
+    const hashPassword = bcrypt.hashSync(password, 10);
+
     const newUser = await User.create({
       username,
-      password,
+      password: hashPassword,
     });
 
     req.login(newUser, () => {
